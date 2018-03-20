@@ -22,9 +22,6 @@ class Categories extends Component {
     const { jokesCategories } = this.state;
     return(
       <div>
-        <button type="button" className="btn btn-warning btn-secondary">
-            Clear categories!
-          </button>
         <h3>Categories</h3>
 
         <div>
@@ -34,7 +31,7 @@ class Categories extends Component {
                 <button className="btn btn-primary btn-block active"
                   type="button"
                   name={category}
-                  onClick={this.props.handleChange}
+                  onClick={this.props.handleClick}
                   >
                   {category}
                 </button>
@@ -48,7 +45,7 @@ class Categories extends Component {
 }
 
 Categories.propTypes = {
-  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
   basePoint: PropTypes.string.isRequired,
 };
 

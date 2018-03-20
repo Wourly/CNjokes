@@ -12,9 +12,11 @@ class App extends Component {
 
     this.state = {
       jokesList: [],
+      numberrOfJokesToDisplay: 1,
     }
 
     this.fetchJoke = this.fetchJoke.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -24,24 +26,36 @@ class App extends Component {
       .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) );
   }
   
-  handleChange(event) {
+  handleClick(event) {
+    const { numberrOfJokesToDisplay } = this.state;
     const target = event.target;
     const name = target.name;
 
-    fetch( basePoint + '/random?category=' + name)
-      .then( response => response.json() )
-      .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) )
+    for ( let i = 0; i < numberrOfJokesToDisplay; i++) {
+      fetch( basePoint + '/random?category=' + name)
+        .then( response => response.json() )
+        .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) )
+    }
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+
+    this.setState({ numberrOfJokesToDisplay: value});
   }
   
   render(){
-    const { jokesList } = this.state;
+    const { jokesList, numberrOfJokesToDisplay } = this.state;
+    
     return (
       <div>
         <div className="jumbotron text-centered">
           <h1>The CHUCKINATOR 5000</h1>
         </div>
         <div className="col col-md-1 btn-group-vertical">
-          <Categories handleChange={this.handleChange} basePoint={basePoint}/>
+          <input type="number" min="1" className="form-control" value={numberrOfJokesToDisplay} onChange={this.handleChange} />
+          <Categories handleClick={this.handleClick} basePoint={basePoint}/>
         </div>
         <div className="col col-md-11">
           { jokesList ? <RetrieveChuck jokesList={jokesList} fetchJoke={this.fetchJoke} /> : "Loading..." }

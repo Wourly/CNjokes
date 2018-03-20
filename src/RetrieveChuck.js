@@ -9,11 +9,11 @@ class RetrieveChuck extends Component {
     
   render(){
     const { jokesList, fetchJoke } = this.props; 
-    
+
     return(
       <div>
         <button type="button" className="btn btn-danger" onClick={fetchJoke}>
-          Give me another one!
+          Give me a random one!
         </button>
 
         <h3>Chuck Jokes</h3>
