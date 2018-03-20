@@ -1,36 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RetrieveChuck extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      jokesList: [],
-    }
-
-    this.fetchJoke = this.fetchJoke.bind(this);
-  }
   
   componentWillMount() {
-    this.fetchJoke();
-  }
-
-  fetchJoke(){
-    fetch('https://api.chucknorris.io/jokes/random')
-      .then( response => response.json() )
-      .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) );
+    this.props.fetchJoke();
   }
     
   render(){
-    const { jokesList } = this.state;
-    console.log(jokesList);
-    if(jokesList.length === 0){
-      return <h3>Loading...</h3>
-    }
-    //console.log( jokesList.map(item => item.category) );
+    const { jokesList, fetchJoke } = this.props; 
+    
     return(
       <div>
-        <button type="button" className="btn btn-danger" onClick={this.fetchJoke}>
+        <button type="button" className="btn btn-danger" onClick={fetchJoke}>
           Give me another one!
         </button>
 
@@ -49,5 +31,10 @@ class RetrieveChuck extends Component {
     );
   };
 }
+
+RetrieveChuck.propTypes = {
+  fetchJoke: PropTypes.func.isRequired,
+  jokesList: PropTypes.array.isRequired,
+};
 
 export default RetrieveChuck;
