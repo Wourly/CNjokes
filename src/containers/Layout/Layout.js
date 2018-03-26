@@ -20,20 +20,24 @@ class Layout extends Component {
     this.decrementHandler = this.decrementHandler.bind(this);
     this.fetchRandomJoke = this.fetchRandomJoke.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.fetchAmountOfJokes = this.fetchAmountOfJokes.bind(this);
     }
 
     componentDidMount() {
+      const { jokesList } = this.state;
+      this.setState({ jokesList });
+
       this.fetchRandomJoke();
     }
   
     incrementHandler() {
       this.setState(prevState => ({numberOfJokes: ++prevState.numberOfJokes}))
-      this.fetchRandomJoke();
+      console.log(this.state.numberOfJokes)
     };
   
     decrementHandler() {
       this.setState(prevState => ({numberOfJokes: --prevState.numberOfJokes}))
-      this.deleteLastJoke();
+      console.log(this.state.numberOfJokes)
     };
 
     deleteLastJoke() {
@@ -42,14 +46,20 @@ class Layout extends Component {
     }
 
     fetchRandomJoke() {
-      const { jokesList } = this.state;
-      this.setState({ jokesList });
-
+    
       fetch(`${apiBaseURL}/random`)
         .then(response => response.json())
         .then(data => this.setState({
-          jokesList: [data, ...jokesList]
+          jokesList: [data, ...this.state.jokesList]
         }));
+    }
+
+    fetchAmountOfJokes() {
+      const { numberOfJokes } = this.state;
+
+      for(let i = 0; i < numberOfJokes; i++) {
+        this.fetchRandomJoke();
+      }
     }
 
     handleClick(event) {
@@ -70,7 +80,8 @@ class Layout extends Component {
           handleClick={this.handleClick} 
           counterValue={numberOfJokes}
           incrementCounter={this.incrementHandler}
-          decrementCounter={this.decrementHandler}/>
+          decrementCounter={this.decrementHandler}
+          fetchAmountOfJokes={this.fetchAmountOfJokes}/>
         <Jokes 
           jokeList={jokesList}/>
 

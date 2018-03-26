@@ -7,12 +7,13 @@ import './button.css';
 
 class Button extends Component {
   render() {
-    const { counterValue, incrementCounter, decrementCounter } = this.props;
+    const { counterValue, incrementCounter, decrementCounter, fetchAmountOfJokes } = this.props;
 
     return (
       <div className="button-area">
-        <button className="get-jokes-button">
-          Give Me Another: {counterValue}
+        <button className="get-jokes-button"
+          onClick={fetchAmountOfJokes}
+          >Give Me Another: {counterValue}
         </button>
         <div className="adjustment-buttons">
           <button className="adjustment-button" 
@@ -34,6 +35,7 @@ Button.propTypes = {
   counterValue: PropTypes.number,
   incrementCounter: PropTypes.any,
   decrementCounter: PropTypes.any,
+  fetchAmountOfJokes: PropTypes.any,
 };
 
 export default Button;
