@@ -42,3 +42,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# my files for testing
+/src/app/joke-display
+/src/app/app.component.html

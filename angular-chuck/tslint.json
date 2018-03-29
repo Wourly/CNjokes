@@ -29,7 +29,7 @@
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
-      true,
+      false,//original true
       140
     ],
     "member-access": false,
@@ -81,11 +81,11 @@
       "check-open-brace",
       "check-catch",
       "check-else",
-      "check-whitespace"
+      //"check-whitespace"
     ],
     "prefer-const": true,
     "quotemark": [
-      true,
+      false,//original true
       "single"
     ],
     "radix": true,
